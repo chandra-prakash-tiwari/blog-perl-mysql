@@ -21,8 +21,8 @@ sub usermenu {
 
 sub useraction{
     my $choice = shift;
-    switch ($choice) {
-        case 1 {
+    given($choice) {
+        when 1 {
             print "Enter name: ";
             my $name = <STDIN>;
             chomp $name;
@@ -35,13 +35,13 @@ sub useraction{
             my $user = userservice::create_user($name, $username, $password);
             print "User created: " . $user->{name} . "\n";
         };
-        case 2 {
+        when 2 {
             my $users = userservice::get_all_users();
             foreach my $user (@$users) {
                 print $user->{name} . "\n";
             }
         };
-        case 3 {
+        when 3 {
             print "Enter username: ";
             my $username = <STDIN>;
             chomp $username;
@@ -55,7 +55,7 @@ sub useraction{
                 print "User not found\n";
             }
         };
-        else {
+        default {
             print "Invalid choice\n";
         };
     }
