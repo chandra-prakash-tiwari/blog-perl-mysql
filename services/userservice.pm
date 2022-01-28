@@ -52,7 +52,7 @@ sub create_user_table{
         name TEXT NOT NULL,
         username TEXT NOT NULL,
         password TEXT NOT NULL,
-        created DATETIME NOT NULL
+        created DATETIME NOT NULL,
     ));
     my $sth = $db->prepare($sql);
     $sth->execute();

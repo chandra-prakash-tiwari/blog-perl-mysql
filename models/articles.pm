@@ -5,7 +5,7 @@ use Exporter;
 
 
 our @ISA = qw(Exporter);
-our @EXPORT = qw(User);
+our @EXPORT = qw(get_title);
 
 sub new {
     my $class= shift;

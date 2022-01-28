@@ -5,25 +5,20 @@ use Exporter;
 
 
 our @ISA = qw(Exporter);
-our @EXPORT = qw(User);
+our @EXPORT = qw(user);
+
 
 sub new {
-    my $class = shift;
-    my $self = {
-        _id => shift,
-        _name => shift,
-        _username => shift,
-        _password => shift,
-        _created => shift,
-    };
+    my ($class)=@_;
+    my $self={
+        _name => "",
+        _username => "",
+        _password => "",
+        _created => localtime(),
+    }
+
     bless $self, $class;
     return $self;
-}
-
-
-sub get_id {
-    my $self = shift;
-    return $self->{_id};
 }
 
 
@@ -33,15 +28,33 @@ sub get_name {
 }
 
 
+sub set_name {
+    my $self = shift;
+    $self->{_name} = shift;
+}
+
+
 sub get_username {
     my $self = shift;
     return $self->{_username};
 }
 
 
+sub set_username {
+    my $self = shift;
+    $self->{_username} = shift;
+}
+
+
 sub get_password {
     my $self = shift;
     return $self->{_password};
+}
+
+
+sub set_password {
+    my $self = shift;
+    $self->{_password} = shift;
 }
 
 
