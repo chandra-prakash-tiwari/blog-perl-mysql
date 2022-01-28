@@ -11,30 +11,25 @@ use user;
 use connectdatabase;
 
 our @ISA = qw(Exporter);
-our @EXPORT = qw(create_user get_all_users);
+our @EXPORT = qw(create_user get_all_users authenticate);
 
 my $db=connectdatabase::connectDB();
 
 sub create_user {
-    my $name = shift;
-    my $username = shift;
-    my $password = shift;
-    my $created = localtime();
+    my $userObj = shift;
     my $sql = qq(INSERT INTO users (name, username, password, created) VALUES (?, ?, ?, ?));
     my $sth = $db->prepare($sql);
-    $sth->execute($name, $username, $password, $created);
-    my $user = get_user($username, $password);
-    return $user;
+    $sth->execute($userObj->get_name(), $userObj->get_username(), $userObj->get_password(), $userObj->get_created());
+    return 1;
 }
 
 
-sub get_user {
-    my $username = shift;
-    my $password = shift;
+sub authenticate {
+    my $authenticateObj = shift;
     my $sql = qq(SELECT * FROM users WHERE username = ? AND password = ?);
     my $sth = $db->prepare($sql);
-    $sth->execute($username, $password);
-    return $sth->fetchrow_hashref();
+    $sth->execute($authenticateObj->get_username(), $authenticateObj->get_password());
+    return $sth->fetchrow_arrayref();
 }
 
 

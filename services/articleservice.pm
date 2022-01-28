@@ -29,13 +29,14 @@ sub create_article_table{
     ));
     my $sth = $db->prepare($sql);
     $sth->execute();
+    print "Table created successfully\n";
 }
 
 
 sub create_article {
     my $title = shift;
-    my $slug = shift;
     my $content = shift;
+    my $slug = shift;
     my $authorid = shift;
     my $created = localtime();
     my $sql = qq(INSERT INTO articles (title, slug, content, authorid, created) VALUES (?, ?, ?, ?, ?));
@@ -56,7 +57,7 @@ sub get_article {
 
 
 sub get_all_articles{
-    my $sql = qq(SELECT * FROM articles);
+    my $sql = qq(SELECT title, slug, content, authorid FROM articles);
     my $sth = $db->prepare($sql);
     $sth->execute();
     return $sth->fetchall_arrayref([]);
