@@ -22,7 +22,7 @@ sub usermenu {
 sub useraction{
     my $choice = shift;
     given($choice) {
-        when 1 {
+        when (1) {
             print "Enter name: ";
             my $name = <STDIN>;
             chomp $name;
@@ -35,13 +35,13 @@ sub useraction{
             my $user = userservice::create_user($name, $username, $password);
             print "User created: " . $user->{name} . "\n";
         };
-        when 2 {
+        when (2) {
             my $users = userservice::get_all_users();
             foreach my $user (@$users) {
                 print $user->{name} . "\n";
             }
         };
-        when 3 {
+        when (3) {
             print "Enter username: ";
             my $username = <STDIN>;
             chomp $username;
